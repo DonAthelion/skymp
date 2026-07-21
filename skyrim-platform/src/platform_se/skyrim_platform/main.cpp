@@ -273,7 +273,7 @@ public:
       int scan = code;
       auto capitalizeLetters = GetCefModifiers_(virtualKeyCode) &
         (EVENTFLAG_SHIFT_DOWN | EVENTFLAG_CAPS_LOCK_ON);
-      auto ch = conv->VkCodeToChar(virtualKeyCode, capitalizeLetters);
+      auto ch = conv->VkCodeToChar(code, capitalizeLetters);
       if (ch)
         app->InjectKey(cef_key_event_type_t::KEYEVENT_CHAR,
                        GetCefModifiers_(virtualKeyCode), ch, scan);

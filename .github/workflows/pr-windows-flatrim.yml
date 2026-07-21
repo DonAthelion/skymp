@@ -1,6 +1,7 @@
 name: PR Windows Flatrim (AE/SE)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:

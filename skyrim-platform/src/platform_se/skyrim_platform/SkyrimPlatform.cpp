@@ -331,6 +331,10 @@ private:
     taskQueue.Clear();
     jsPromiseTaskQueue.Clear();
     nativeCallRequirements.jsThrQ->Clear();
+    // Monta sincronizada: al resetear la vista (reconnect / cambio de sesión) hay que
+    // soltar los perfiles de colisión del char controller y los pares caballo-jinete
+    // cinemáticos, o quedan actores con flags/keyframes viejos.
+    ObjectReferenceApi::QueueClearCharacterControllerCollisionProfiles();
     settingsByPluginName.clear();
     settingsByPluginNameCache.reset();
   }

@@ -306,5 +306,12 @@ void MyChromiumApp::RunTasks()
 void MyChromiumApp::OnBeforeCommandLineProcessing(
   const CefString& aProcessType, CefRefPtr<CefCommandLine> aCommandLine)
 {
+  // El input del juego llega a CEF inyectado por SkyrimPlatform, que Chromium NO
+  // considera un "user gesture" confiable, así que su política de autoplay por
+  // defecto bloquea audio/vídeo no muteado (bug del minijuego de bardos, del audio
+  // posicional de bardos y del IntroVideo que tenía que mutearse). Desactivamos el
+  // gate de gesto para permitir reproducción programática.
+  aCommandLine->AppendSwitchWithValue("autoplay-policy",
+                                      "no-user-gesture-required");
 }
 }

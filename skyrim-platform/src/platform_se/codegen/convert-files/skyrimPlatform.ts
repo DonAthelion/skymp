@@ -1629,6 +1629,15 @@ export declare function applyAnimationVariablesToActor(actorFormId: number, anim
 
 export declare function setCollision(refrFormId: number, collision: boolean): void;
 
+// Monta sincronizada: mueve el par caballo+jinete como keyframe cinemático por el char
+// controller (Havok-coherente, sin translateTo) + perfiles de colisión.
+export declare function setCharacterControllerCollision(actorFormId: number, collision: boolean): void;
+export declare function setCharacterControllerCollisionProfile(actorFormId: number, profile: number, lease?: number): void;
+export declare function getCharacterControllerCollisionProfileState(actorFormId: number): number;
+export declare function setObjectReferenceTransform(refrFormId: number, positionX: number, positionY: number, positionZ: number, angleX: number, angleY: number, angleZ: number): void;
+export declare function setMountedPairKinematicTransform(horseFormId: number, riderFormId: number, lease: number, serial: number, positionX: number, positionY: number, positionZ: number, angleX: number, angleY: number, angleZ: number, riderSeatHeight: number): boolean;
+export declare function releaseMountedPairKinematicTransform(horseFormId: number, riderFormId: number, lease: number): void;
+
 // Based on Form.pex
 export declare class Form extends PapyrusObject {
   static from(papyrusObject: PapyrusObject | null): Form | null
