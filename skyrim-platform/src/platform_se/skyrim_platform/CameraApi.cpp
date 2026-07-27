@@ -1,5 +1,28 @@
 #include "CameraApi.h"
+#include "InvalidArgumentException.h"
 #include "NullPointerException.h"
+
+Napi::Value CameraApi::SetCameraFov(const Napi::CallbackInfo& info)
+{
+  auto camera = RE::PlayerCamera::GetSingleton();
+  if (!camera)
+    throw NullPointerException("camera");
+
+  const auto worldFov = NapiHelper::ExtractFloat(info[0], "worldFov");
+  const auto firstPersonFov =
+    info.Length() >= 2
+    ? NapiHelper::ExtractFloat(info[1], "firstPersonFov")
+    : worldFov;
+
+  if (worldFov < 1.f || worldFov > 179.f)
+    throw InvalidArgumentException("worldFov", worldFov);
+  if (firstPersonFov < 1.f || firstPersonFov > 179.f)
+    throw InvalidArgumentException("firstPersonFov", firstPersonFov);
+
+  camera->worldFOV = worldFov;
+  camera->firstPersonFOV = firstPersonFov;
+  return info.Env().Undefined();
+}
 
 Napi::Value CameraApi::WorldPointToScreenPoint(const Napi::CallbackInfo& info)
 {
